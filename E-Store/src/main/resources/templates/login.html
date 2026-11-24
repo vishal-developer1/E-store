@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Login | VP Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            margin: 35px 0 25px;
+            font-size: 30px;
+            font-weight: bold;
+            color: #131921;
+        }
+
+        .logo span {
+            color: #ff9900;
+        }
+
+        .login-container {
+            width: 350px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 28px 26px;
+            background: #fff;
+        }
+
+        h2 {
+            font-size: 27px;
+            font-weight: 500;
+            color: #111;
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #111;
+        }
+
+        input {
+            width: 100%;
+            height: 40px;
+            padding: 9px;
+            border: 1px solid #888;
+            border-radius: 4px;
+            margin-bottom: 18px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #e77600;
+            box-shadow: 0 0 4px rgba(228, 121, 17, 0.6);
+        }
+
+        .login-btn {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #fcd200;
+            border-radius: 20px;
+            background: #ffd814;
+            color: #111;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .login-btn:hover {
+            background: #f7ca00;
+        }
+
+        .message {
+            font-size: 13px;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .error {
+            background: #fff1f0;
+            color: #c40000;
+            border: 1px solid #ffcccc;
+        }
+
+        .success {
+            background: #f0fff4;
+            color: #16803c;
+            border: 1px solid #b7ebc6;
+        }
+
+        .divider {
+            border-top: 1px solid #ddd;
+            margin: 23px 0 18px;
+        }
+
+        .create-account {
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid #adb1b8;
+            border-radius: 20px;
+            padding: 10px;
+            color: #111;
+            font-size: 14px;
+            background: #fff;
+        }
+
+        .create-account:hover {
+            background: #f7fafa;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #555;
+            text-align: center;
+        }
+
+        @media (max-width: 400px) {
+            .login-container {
+                width: calc(100% - 30px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="logo">E-<span>Store</span></div>
+
+    <div class="login-container">
+
+        <h2>Sign in</h2>
+
+        <p th:if="${param.error}" class="message error">
+            Invalid email or password!
+        </p>
+
+        <p th:if="${param.logout}" class="message success">
+            Successfully logged out!
+        </p>
+
+        <p th:if="${param.registered}" class="message success">
+            Registration successful. Please login.
+        </p>
+
+        <form th:action="@{/login}" method="post">
+
+            <label>Email</label>
+            <input type="email"
+                   name="email"
+                   placeholder="Enter your email"
+                   required>
+
+            <label>Password</label>
+            <input type="password"
+                   name="password"
+                   placeholder="Enter your password"
+                   required>
+
+            <button type="submit" class="login-btn">
+                Sign in
+            </button>
+
+        </form>
+
+        <div class="divider"></div>
+        <a th:href="@{/register}" class="create-account">
+            Create your account
+        </a>
+
+    </div>
+
+    <div class="footer">
+        © 2026 VP Store. All rights reserved.
+    </div>
+
+</body>
+</html>

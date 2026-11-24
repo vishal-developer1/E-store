@@ -1,0 +1,618 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>E-Store | Online Shopping</title>
+
+<!-- Bootstrap 5 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+	rel="stylesheet">
+
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background: #f5f7fb;
+	font-family: 'Segoe UI', Arial, sans-serif;
+	color: #333;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+/* NAVBAR */
+.navbar {
+	background: linear-gradient(90deg, #141e30, #243b55);
+	padding: 15px 0;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-brand {
+	color: #ffc107 !important;
+	font-size: 27px;
+	font-weight: 800;
+	letter-spacing: 1px;
+}
+
+.navbar .nav-link {
+	color: white !important;
+	font-weight: 500;
+	padding: 10px 15px !important;
+	transition: 0.3s;
+}
+
+.navbar .nav-link:hover {
+	color: #ffc107 !important;
+}
+
+.nav-btn {
+	border-radius: 25px;
+	padding: 8px 20px;
+	font-weight: 600;
+}
+
+.profile-btn {
+	background: #ffc107;
+	color: #17283d;
+	border: none;
+	border-radius: 25px;
+	padding: 9px 18px;
+	font-weight: 600;
+}
+
+.profile-btn:hover {
+	background: #ffda55;
+	color: #17283d;
+}
+
+.dropdown-menu {
+	border: none;
+	border-radius: 12px;
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+	padding: 10px;
+}
+
+.dropdown-item {
+	padding: 10px 15px;
+	border-radius: 7px;
+}
+
+/* HERO SECTION */
+.hero {
+	background: linear-gradient(120deg, #243b55, #141e30);
+	color: white;
+	text-align: center;
+	padding: 85px 20px;
+	border-radius: 0 0 35px 35px;
+}
+
+.hero h1 {
+	font-size: 45px;
+	font-weight: 800;
+	margin-bottom: 18px;
+}
+
+.hero p {
+	font-size: 18px;
+	color: #d5dce5;
+	max-width: 650px;
+	margin: auto;
+	line-height: 1.7;
+}
+
+.hero-btn {
+	margin-top: 25px;
+	padding: 13px 35px;
+	border-radius: 30px;
+	font-weight: 700;
+	font-size: 16px;
+	transition: 0.3s;
+}
+
+.hero-btn:hover {
+	transform: translateY(-3px);
+	background: #ffda55;
+}
+
+/* FEATURES */
+.features {
+	margin-top: 35px;
+	margin-bottom: 35px;
+}
+
+.feature-box {
+	background: white;
+	padding: 22px;
+	border-radius: 14px;
+	text-align: center;
+	height: 100%;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.feature-box i {
+	font-size: 30px;
+	color: #243b55;
+}
+
+.feature-box h6 {
+	font-weight: 700;
+	margin-top: 12px;
+}
+
+.feature-box p {
+	color: #777;
+	font-size: 13px;
+	margin-bottom: 0;
+}
+
+/* PRODUCTS */
+.products-section {
+	padding: 35px 0 65px;
+}
+
+.section-title {
+	text-align: center;
+	color: #243b55;
+	font-size: 32px;
+	font-weight: 800;
+	margin-bottom: 10px;
+}
+
+.section-subtitle {
+	color: #777;
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+.product-card {
+	border: none;
+	border-radius: 16px;
+	overflow: hidden;
+	background: white;
+	height: 100%;
+	transition: 0.3s;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+}
+
+.product-card:hover {
+	transform: translateY(-8px);
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+}
+
+.product-img {
+	width: 100%;
+	height: 230px;
+	object-fit: contain;
+	padding: 12px;
+	background: #fff;
+}
+
+.product-name {
+	color: #243b55;
+	font-weight: 700;
+	font-size: 18px;
+	min-height: 48px;
+}
+
+.product-price {
+	color: #198754;
+	font-size: 22px;
+	font-weight: 800;
+	margin: 10px 0 18px;
+}
+
+.product-btn {
+	border-radius: 25px;
+	padding: 9px 15px;
+	font-weight: 600;
+}
+
+.product-card .card-body {
+	padding: 20px;
+}
+
+.empty-products {
+	background: white;
+	padding: 50px 20px;
+	border-radius: 15px;
+	text-align: center;
+}
+
+/* FOOTER */
+footer {
+	margin-top: auto;
+	background: linear-gradient(90deg, #141e30, #243b55);
+	color: white;
+	padding: 50px 0 15px;
+}
+
+.footer-title {
+	color: #ffc107;
+	font-size: 22px;
+	font-weight: 800;
+	margin-bottom: 18px;
+}
+
+.footer-text {
+	color: #d5dce5;
+	line-height: 1.8;
+}
+
+.footer-link {
+	display: block;
+	color: #d5dce5;
+	text-decoration: none;
+	margin-bottom: 12px;
+	transition: 0.3s;
+}
+
+.footer-link:hover {
+	color: #ffc107;
+	padding-left: 5px;
+}
+
+.social-links a {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 38px;
+	height: 38px;
+	background: rgba(255, 255, 255, 0.12);
+	color: white;
+	border-radius: 50%;
+	margin-right: 8px;
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+.social-links a:hover {
+	background: #ffc107;
+	color: #141e30;
+}
+
+.copyright {
+	border-top: 1px solid #526174;
+	margin-top: 30px;
+	padding-top: 18px;
+	color: #c5cbd3;
+	text-align: center;
+}
+
+/* RESPONSIVE */
+@media ( max-width : 768px) {
+	.hero {
+		padding: 60px 15px;
+	}
+	.hero h1 {
+		font-size: 32px;
+	}
+	.hero p {
+		font-size: 15px;
+	}
+	.section-title {
+		font-size: 26px;
+	}
+	.navbar-nav {
+		padding-top: 15px;
+		align-items: stretch !important;
+	}
+	.navbar-nav .btn {
+		width: 100%;
+	}
+}
+</style>
+</head>
+
+<body>
+
+	<!-- ================= NAVBAR ================= -->
+
+	<nav class="navbar navbar-expand-lg navbar-dark">
+
+		<div class="container">
+
+			<a class="navbar-brand" th:href="@{/customer/home}"> <i
+				class="bi bi-bag-heart-fill"></i> E-Store
+			</a>
+
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+
+				<span class="navbar-toggler-icon"></span>
+
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarMenu">
+
+				<div class="navbar-nav ms-auto align-items-lg-center gap-2">
+
+					<!-- Home -->
+					<a th:href="@{/customer/home}" class="nav-link"> <i
+						class="bi bi-house"></i> Home
+					</a>
+
+					<!-- Products -->
+					<a href="#products" class="nav-link"> <i class="bi bi-grid"></i>
+						Products
+					</a>
+
+					<!-- Cart: Customer Only -->
+					<a th:if="${session.userRole == 'CUSTOMER'}" th:href="@{/cart}"
+						class="btn btn-warning nav-btn"> <i class="bi bi-cart3"></i>
+						Cart
+
+					</a>
+
+					<!-- Guest Login -->
+					<a th:if="${session.loggedInUser == null}" th:href="@{/login}"
+						class="btn btn-outline-light nav-btn"> Login </a>
+
+					<!-- Guest Register -->
+					<a th:if="${session.loggedInUser == null}" th:href="@{/register}"
+						class="btn btn-success nav-btn"> Register </a>
+
+					<!-- Admin Dashboard -->
+					<a th:if="${session.userRole == 'ADMIN'}"
+						th:href="@{/admin/admindash}" class="btn btn-primary nav-btn">
+
+						<i class="bi bi-speedometer2"></i> Admin
+
+					</a>
+
+					<!-- User Profile Dropdown -->
+					<div th:if="${session.loggedInUser != null}" class="dropdown">
+
+						<button class="profile-btn dropdown-toggle" type="button"
+							data-bs-toggle="dropdown">
+
+							<i class="bi bi-person-circle"></i> <span
+								th:text="${session.userName}"> User </span>
+
+						</button>
+
+						<ul class="dropdown-menu dropdown-menu-end">
+
+							<li>
+								<h6 class="dropdown-header">My Account</h6>
+							</li>
+
+							<li><span class="dropdown-item-text"> <i
+									class="bi bi-person-fill"></i> <strong
+									th:text="${session.userName}"> User Name </strong>
+							</span></li>
+
+							<li><span class="dropdown-item-text text-muted small">
+									<i class="bi bi-shield-check"></i> <span
+									th:text="${session.userRole}"> CUSTOMER </span>
+							</span></li>
+
+							<li><hr class="dropdown-divider"></li>
+
+							<li><a class="dropdown-item text-danger"
+								th:href="@{/logout}"> <i class="bi bi-box-arrow-right"></i>
+									Logout
+
+							</a></li>
+
+						</ul>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</nav>
+
+
+	<!-- ================= PRODUCTS SECTION ================= -->
+
+	<section class="products-section" id="products">
+
+		<div class="container">
+
+			<h2 class="section-title">Our Latest Products</h2>
+
+
+			<div class="row g-4">
+
+				<!-- Product Card -->
+				<div class="col-12 col-sm-6 col-lg-3" th:each="p : ${products}">
+
+					<div class="card product-card">
+
+						<!-- Product Image -->
+						<img th:if="${p.image != null and !p.image.isEmpty()}"
+							th:src="@{/images/{img}(img=${p.image})}" class="product-img"
+							th:alt="${p.name}">
+
+						<!-- No Image -->
+						<div th:unless="${p.image != null and !p.image.isEmpty()}"
+							class="product-img d-flex align-items-center justify-content-center">
+
+							<div class="text-center text-muted">
+
+								<i class="bi bi-image fs-1"></i>
+
+								<p>No Image Available</p>
+
+							</div>
+
+						</div>
+
+						<div class="card-body d-flex flex-column">
+
+							<!-- Product Name -->
+							<h5 class="product-name" th:text="${p.name}">Product Name</h5>
+
+							<!-- Product Price -->
+							<p class="product-price">
+
+								₹<span th:text="${#numbers.formatDecimal(p.price, 1, 2)}">
+									0.00 </span>
+
+							</p>
+
+							<!-- Buttons -->
+							<div class="mt-auto d-flex flex-column gap-2">
+
+
+								<a
+									th:if="${session.loggedInUser != null and session.userRole == 'CUSTOMER'}"
+									th:href="@{/customer/product-details/{id}(id=${p.id})}"
+									class="btn btn-primary rounded-pill fw-semibold"> <i
+									class="bi bi-eye"></i> View Product
+
+								</a>
+
+								<form th:if="${session.userRole == 'CUSTOMER'}"
+									th:action="@{/cart/add/{id}(id=${p.id})}" method="post">
+
+									<button type="submit" class="btn btn-success product-btn w-100">
+
+										<i class="bi bi-cart-plus"></i> Add to Cart
+
+									</button>
+
+								</form>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+
+				<!-- No Products -->
+				<div th:if="${#lists.isEmpty(products)}" class="col-12">
+
+					<div class="empty-products">
+
+						<i class="bi bi-bag-x fs-1 text-secondary"></i>
+
+						<h4 class="mt-3">No Products Available</h4>
+
+						<p class="text-muted">Please check back later for new
+							products.</p>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</section>
+
+
+	<!-- ================= FOOTER ================= -->
+
+	<footer>
+
+		<div class="container">
+
+			<div class="row g-4">
+
+				<!-- About -->
+				<div class="col-12 col-md-4">
+
+					<h4 class="footer-title">
+						<i class="bi bi-bag-heart-fill"></i> E-Store
+					</h4>
+
+					<p class="footer-text">Your trusted online shopping
+						destination. Discover quality products at affordable prices and
+						enjoy a convenient shopping experience.</p>
+
+					<div class="social-links">
+
+						<a href="#" aria-label="Facebook"> <i class="bi bi-facebook"></i>
+						</a> <a href="#" aria-label="Instagram"> <i
+							class="bi bi-instagram"></i>
+						</a> <a href="#" aria-label="Twitter"> <i class="bi bi-twitter-x"></i>
+						</a>
+
+					</div>
+
+				</div>
+
+
+				<!-- Quick Links -->
+				<div class="col-6 col-md-4">
+
+					<h5 class="footer-title">Quick Links</h5>
+
+					<a th:href="@{/customer/home}" class="footer-link"> Home </a> <a
+						href="#products" class="footer-link"> Products </a> <a
+						th:if="${session.userRole == 'CUSTOMER'}" th:href="@{/cart}"
+						class="footer-link"> Shopping Cart </a> <a
+						th:if="${session.loggedInUser == null}" th:href="@{/login}"
+						class="footer-link"> Login </a> <a
+						th:if="${session.loggedInUser == null}" th:href="@{/register}"
+						class="footer-link"> Register </a>
+
+				</div>
+
+
+				<!-- Customer Service -->
+				<div class="col-6 col-md-4">
+
+					<h5 class="footer-title">Customer Service</h5>
+
+					<p class="footer-text mb-2">
+						<i class="bi bi-truck"></i> Fast Delivery
+					</p>
+
+					<p class="footer-text mb-2">
+						<i class="bi bi-shield-check"></i> Secure Payment
+					</p>
+
+					<p class="footer-text mb-2">
+						<i class="bi bi-headset"></i> Customer Support
+					</p>
+
+				</div>
+
+			</div>
+
+
+			<!-- Copyright -->
+			<div class="copyright">
+
+				<p class="mb-0">© 2026 E-Store. All Rights Reserved.</p>
+
+				<small> Designed with Bootstrap 5 </small>
+
+			</div>
+
+		</div>
+
+	</footer>
+
+
+	<!-- Bootstrap JavaScript -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+</html>
